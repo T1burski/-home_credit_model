@@ -14,7 +14,7 @@ def feature_engineering_training(df_in):
         else:
             df_in[i] = np.where(df_in[i].isnull(), 0, df_in[i])
     
-    cat_cols_to_drop = ['NAME_INCOME_TYPE', 'WEEKDAY_APPR_PROCESS_START', 'NAME_FAMILY_STATUS']
+    cat_cols_to_drop = ['NAME_INCOME_TYPE', 'WEEKDAY_APPR_PROCESS_START', 'NAME_FAMILY_STATUS', 'SK_ID_CURR']
     
     if 'ORGANIZATION_TYPE' not in cat_cols_to_drop:
         organization_type_df = pd.crosstab(df_in['ORGANIZATION_TYPE'], df_in['TARGET'], normalize='index').reset_index()
@@ -58,7 +58,7 @@ def feature_engineering_production(df_in):
         else:
             df_in[i] = np.where(df_in[i].isnull(), 0, df_in[i])
         
-    cat_cols_to_drop = ['NAME_INCOME_TYPE', 'WEEKDAY_APPR_PROCESS_START', 'NAME_FAMILY_STATUS']
+    cat_cols_to_drop = ['NAME_INCOME_TYPE', 'WEEKDAY_APPR_PROCESS_START', 'NAME_FAMILY_STATUS', 'SK_ID_CURR']
 
     if 'ORGANIZATION_TYPE' not in cat_cols_to_drop:
 

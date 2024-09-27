@@ -62,11 +62,11 @@ class BigQuery_DataOps:
                 return None
 
     
-    # def load_data(self, tb_data, tb_name):
+    def load_data(self, tb_data, tb_name):
 
-    #     db_id = self.sub_db
-    #     service_account_info = json.load(open('home_credit_creds.json'))
-    #     credentials = service_account.Credentials.from_service_account_info(
-    #         service_account_info)
+        db_id = self.sub_db
+        service_account_info = json.load(open('home_credit_creds.json'))
+        credentials = service_account.Credentials.from_service_account_info(
+            service_account_info)
         
-    #     tb_data.to_gbq(credentials = credentials, destination_table = db_id + "." + tb_name, if_exists = 'replace')
+        tb_data.to_gbq(credentials = credentials, destination_table = db_id + "." + tb_name, if_exists = 'replace')

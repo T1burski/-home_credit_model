@@ -18,7 +18,7 @@ class StackedModel:
     def __init__(self, df):
 
         self.string_cols = [c for c in list(df.columns) if df[c].dtype == 'object']
-        self.features = [c for c in df.columns if c not in ['TARGET', 'SK_ID_CURR']]
+        self.features = [c for c in df.columns if c not in ['TARGET']]
         self.df = df
 
         columns_trans = ColumnTransformer(
