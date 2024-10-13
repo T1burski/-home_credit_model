@@ -68,14 +68,14 @@ class StackedModel:
         threshold_dict = {}
         threshold_dict['best_threshold'] = best_threshold
 
-        with open("models/threshold.json", "w") as json_file:
+        with open("artifacts/threshold.json", "w") as json_file:
             json.dump(threshold_dict, json_file)
 
         return self.calibrated_pipeline
     
     def prediction_w_model(self, trained_model):
 
-        threshold_dict = json.load(open('models/threshold.json'))
+        threshold_dict = json.load(open('artifacts/threshold.json'))
 
         threshold = float(threshold_dict['best_threshold'])
 

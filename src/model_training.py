@@ -4,6 +4,7 @@ from feature_engineering import feature_engineering_training
 from model_functions import StackedModel
 import warnings
 from datetime import datetime
+import json
 warnings.filterwarnings('ignore')
 
 current_date = datetime.now()
@@ -28,6 +29,12 @@ print("==============================\n")
 
 print("==============================")
 print("Start: Feature Engineering Process")
+feature_types = {"object_features": [col for col in df.columns if df[col].dtype == 'object'],
+                 "numeric_features": [col for col in df.columns if df[col].dtype != 'object']}
+
+with open("artifacts/feature_types.json", "w") as json_file:
+            json.dump(feature_types, json_file)
+
 df = feature_engineering_training(df)
 print("Finish: Feature Engineering Process")
 
