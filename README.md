@@ -17,7 +17,11 @@ The image above shows the whole data stack built in order to manage the data and
 ### 2) The Data:
 The data provided was very complex, with multiple datasets and a fairly complex relational modeling behind. In this project, we did not use every original dataset for data storage reasons. The first data ingestion was made using PySpark and the rest of the modeling and architecture was done using dbt core. The repo containing these first ingestion pipelines and dbt core code base can be found in the github repo in the following link: https://github.com/T1burski/-home_credit_bigquery/tree/main .
 
-The first ingestion can be found in the mentioned repo in scr/initial_ingestion.py, and the dbt queries in dbt_bigquery. The resulting Lineage Graph within dbt can be seen below:
+The first ingestion can be found in the mentioned repo in scr/initial_ingestion.py, along with the dbt queries in dbt_bigquery. The resulting Lineage Graph within dbt can be seen below, which was generated with dbt docs:
 
 ![image](https://github.com/user-attachments/assets/a7dc89cb-7b4f-4def-929e-a98492ed404b)
+
+raw_bureau represents application data from previous loans that a client got from other institutions that npt Home Credit, raw_dimensions represents various information regarding the clients that had applications in Home Credit, raw_facts represents other information regaring the clients that had applications in Home Credit, here including the monetary amounts of the credits, along with other many features. In the end, raw_target contains the information for each client if they had or not default (TARGET column).
+
+Using dbt core, the construction of each layer of data was created using dbt models, stating the sources, SQL queries and dependencies. In prd, we can find ready to be consumed data.
 
