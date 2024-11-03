@@ -23,5 +23,27 @@ The first ingestion can be found in the mentioned repo in scr/initial_ingestion.
 
 raw_bureau represents application data from previous loans that a client got from other institutions that npt Home Credit, raw_dimensions represents various information regarding the clients that had applications in Home Credit, raw_facts represents other information regaring the clients that had applications in Home Credit, here including the monetary amounts of the credits, along with other many features. In the end, raw_target contains the information for each client if they had or not default (TARGET column).
 
-Using dbt core, the construction of each layer of data was created using dbt models, stating the sources, SQL queries and dependencies. In prd, we can find ready to be consumed data.
+Using dbt core, the construction of each layer of data was created, stating the sources, SQL queries and dependencies. In prd, we can find ready to be consumed data, such as the table prd_analytical_base_table, that contains all ready aggregations and joins that create a table with the correct granularity for training and predicting the occurrence of TARGET = 1, meaning the occurrence of default by that client. As we can see in the image above, this table is the culmination of the modeling and transforming of every table used in the project.
 
+With all this, in Google BigQuery we can check the data available:
+
+![image](https://github.com/user-attachments/assets/51c22e51-5408-4457-ba1e-060495d1e2f3)
+
+
+### 3) The Model:
+All details regarding the whole exploratory data analysis along with feature engineering and model selection can be found in the notebook "eda.ipynb". In the end, after all exploration, the Stacked model below was selected according to the metric ROC UAC:
+
+![image](https://github.com/user-attachments/assets/f61db035-82da-4ca1-a607-cf45e21ba821)
+
+The whole model was encapsulated in a sklearn pipeline that has a preprocessor of categorical features using OneHot Encoding, followed by the Stacked model that has Random Forest, XGBoost and LightGBM as base learners and a final logistic regression as a meta learner.
+
+All engineering processes (including data transformations, feature selection and feature creation) were also developed in python methods ready to be imported and consumed in prod afterwards.
+Also, the method that has the whole training pipeline of the model also, automatically, performs probability calibration for the classification model and the threshold tunning for the predictions using F1-Score maximization.
+
+
+### 4) The Results:
+Here, let's state how well the model performed on unseen data after the training process. On unseen data, the model had a Recall of 0.56, a precision of 0.37 and a ROC AUC of 0.85. We have to remember here that this challenge has an extreme class imbalance with an extremely complex data behind. The Recall and Precision may no be outstanding (they also are completely dependent on the threshold found), but for a complex environment, we can accept the results as satisfatory (of course, the business would have this information of a baseline that we should be better than to consider the new model a success).
+
+Also, as said in the beginning of this text, the model had, considering this testing data, a potential financial impact of 1,37 Billion USD assuming that the Credit Amount provided was given in USD, all this considering the Credit Amount of the Client's credits that had default status as positive and were predicted so.
+
+### 5) Building a Production Version of the Model: Deployment:
