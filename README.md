@@ -47,3 +47,17 @@ Here, let's state how well the model performed on unseen data after the training
 Also, as said in the beginning of this text, the model had, considering this testing data, a potential financial impact of 1,37 Billion USD assuming that the Credit Amount provided was given in USD, all this considering the Credit Amount of the Client's credits that had default status as positive and were predicted so.
 
 ### 5) Building a Production Version of the Model: Deployment:
+The model (along with all necessary data pipelines) was deployed through a API REST using FastAPI using a Docker container. After deploying the model, a python script was developed to simulate the client's usage of the API. Below, a screen shot of the model deployed using Docker receiving the API calls, providing the predictions according to the client's selections.
+
+![image](https://github.com/user-attachments/assets/069fca4f-98a4-467b-9f0c-fcce6bb98461)
+
+The script that contains the code that simulates the client's requests is in client_testing.py. This script also saves the predicted data in Google BigQuery, returning the info in the format that the API's output was designed (default_probability: the predict_proba of the model and default_occurrence: a text saying "Yes" if there is a potential default risk accoring to the tunned threshold and "No" otherwise). Below, a example of the output:
+
+![image](https://github.com/user-attachments/assets/b5c476ad-f7d9-4273-b875-d36f868f7c90)
+
+As we can see in the example above, clients 456245, 456233 and 456231 are potentially going default. The probability is important to be shown so that experts can have a notion of the uncertainty of the "Yes" or "No" predictions, therefore being able to sometimes judge the predictions according to domain knowledge.
+
+### 6) Conclusions:
+This project showed various technical capabilities of data engineering, data analysis and data science. From the initial ingestions using PySpark and all the data modeling using dbt core to manage data in Google BigQuery to the complete EDA process followed by the creation and optimization of the complex Stacked Machine Learning models, a very broad variety of skills and knowledge was shown, all with the objective of solving a real problem, in a real company with "real" data, that delivers a solid and measureable result as shown.
+
+Main technical skills worked: Google BigQuery, dbt core, PySpark, Python, SQL, Sklearn, Machine Learning, Statistical Analysis, Hypothesis Testing, Docker, FastAPI, Feature Engineering, Relational Modeling, ETL.
