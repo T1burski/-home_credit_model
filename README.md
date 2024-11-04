@@ -31,7 +31,7 @@ With all this, in Google BigQuery we can check the data available:
 
 
 ### 3) The Model:
-All details regarding the whole exploratory data analysis along with feature engineering and model selection can be found in the notebook "eda.ipynb". In the end, after all exploration, the Stacked model below was selected according to the metric ROC UAC:
+All details regarding the whole exploratory data analysis along with feature engineering and model selection can be found in the notebook "eda.ipynb". In the end, after all exploration, the Stacked model below was selected according to the metric ROC AUC:
 
 ![image](https://github.com/user-attachments/assets/f61db035-82da-4ca1-a607-cf45e21ba821)
 
